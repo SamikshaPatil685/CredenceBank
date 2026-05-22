@@ -45,10 +45,12 @@ public class UserServiceImpl implements UserService {
 
 
     //this wil save images to the backend root folder
-//    private final String uploadDir = "uploads/profile-pictures/";
+
+      private final String uploadDir = "uploads/profile-picture/";
 
     //this wil save images to the frontend public folder for easy access in the frontend
-    private final String uploadDir = "uploads/profile-picture/";
+
+   // private final String uploadDir = "C:/CredenceBank/CredenceBank-React/public/profile-picture/";
 
 
     @Override
@@ -146,7 +148,8 @@ public class UserServiceImpl implements UserService {
             }
 
             if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
-                Path oldFile = Paths.get(user.getProfilePictureUrl());
+               // Path oldFile = Paths.get(user.getProfilePictureUrl());
+                Path oldFile = Paths.get(uploadDir + Paths.get(user.getProfilePictureUrl()).getFileName());
                 if (Files.exists(oldFile)) {
                     Files.delete(oldFile);
                 }
@@ -165,8 +168,8 @@ public class UserServiceImpl implements UserService {
 
             Files.copy(file.getInputStream(), filePath);
 
-//            String fileUrl = uploadDir + newFileName; //this is for backend
-            String fileUrl =  "profile-picture/" + newFileName;// this is the relative path from the frontend
+         //  String fileUrl = uploadDir + newFileName; //this is for backend
+           String fileUrl =  "profile-picture/" + newFileName;// this is the relative path from the frontend
 
 
             user.setProfilePictureUrl(fileUrl);
